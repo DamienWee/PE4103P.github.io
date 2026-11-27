@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>We Are Screwed Lor — Singapore’s Epistemic Environment</title>
+    <style>
+      :root {
+        --bg: #faf8f4;
+        --fg: #1d1d1f;
+        --mute: #6b6b70;
+        --card: #fff;
+        --line: #e2ddd3;
+        --acc: #c8102e;
+        --acc2: #8a0b20;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #17161a;
+          --fg: #ecebe8;
+          --mute: #a09fa6;
+          --card: #222126;
+          --line: #38363d;
+          --acc: #ff5a6e;
+          --acc2: #ff8f9c;
+        }
+      }
+
+      :root[data-theme="dark"] {
+        --bg: #17161a;
+        --fg: #ecebe8;
+        --mute: #a09fa6;
+        --card: #222126;
+        --line: #38363d;
+        --acc: #ff5a6e;
+        --acc2: #ff8f9c;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 18px/1.7 Georgia, "Times New Roman", serif;
+      }
+
+      nav {
+        position: sticky;
+        top: env(safe-area-inset-top, 0px);
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        padding: 0.6rem 1rem;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        font: 14px system-ui, sans-serif;
+        z-index: 5;
+      }
+
+      nav a {
+        color: var(--mute);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      nav a:hover {
+        color: var(--acc);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0 0 auto;
+        height: env(safe-area-inset-top, 0px);
+        background: var(--bg);
+        z-index: 10;
+      }
+
+      header {
+        max-width: 760px;
+        margin: auto;
+        padding: 4rem 1.25rem 2rem;
+      }
+
+      h1 {
+        margin: 0.2em 0;
+        font-size: clamp(2rem, 6vw, 3.2rem);
+        line-height: 1.1;
+      }
+
+      h1 em {
+        color: var(--acc);
+      }
+
+      h2 {
+        margin: 0 0 0.3em;
+        font-size: 1.7rem;
+        line-height: 1.2;
+      }
+
+      h3 {
+        margin: 1.8em 0 0.4em;
+        color: var(--acc);
+        font: 600 1rem system-ui, sans-serif;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .tag {
+        color: var(--acc);
+        font: 600 12px system-ui, sans-serif;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      section {
+        max-width: 760px;
+        margin: auto;
+        padding: 3rem 1.25rem;
+        border-top: 1px solid var(--line);
+      }
+
+      p {
+        margin: 0.8em 0;
+      }
+
+      .lede {
+        color: var(--mute);
+        font-size: 1.2rem;
+      }
+
+      .note {
+        margin: 1.2rem 0;
+        padding: 0.7rem 0.9rem;
+        background: var(--card);
+        border: 1px dashed var(--line);
+        border-left: 3px solid var(--acc);
+        border-radius: 6px;
+        color: var(--mute);
+        font: 14px/1.5 system-ui, sans-serif;
+      }
+
+      .wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 480px;
+        border-collapse: collapse;
+        font: 15px/1.5 system-ui, sans-serif;
+      }
+
+      th,
+      td {
+        padding: 0.55rem 0.7rem;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--card);
+      }
+
+      ul.src {
+        padding-left: 1.1rem;
+        color: var(--mute);
+        font: 14px/1.5 system-ui, sans-serif;
+      }
+
+      a {
+        color: var(--acc2);
+      }
+
+      /* interactive */
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 0.6rem 0;
+      }
+
+      button,
+      select,
+      textarea {
+        color: var(--fg);
+        font: 15px system-ui, sans-serif;
+      }
+
+      .node {
+        padding: 0.45rem 0.9rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .node[aria-pressed="true"] {
+        background: var(--acc);
+        border-color: var(--acc);
+        color: #fff;
+      }
+
+      .layer {
+        margin-top: 1rem;
+        color: var(--mute);
+        font: 600 12px system-ui, sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      #detail {
+        min-height: 7rem;
+        padding: 1rem 1.2rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        font: 15px/1.6 system-ui, sans-serif;
+      }
+
+      #detail h4 {
+        margin: 0 0 0.3rem;
+        font: 600 1.05rem Georgia, serif;
+      }
+
+      form {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.6rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      .go {
+        justify-self: start;
+        padding: 0.6rem 1.1rem;
+        background: var(--acc);
+        border: 0;
+        border-radius: 8px;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .entry {
+        margin: 0.6rem 0;
+        padding: 0.7rem 0.9rem;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font: 15px/1.5 system-ui, sans-serif;
+      }
+
+      .entry small {
+        display: block;
+        color: var(--mute);
+      }
+
+      footer {
+        max-width: 760px;
+        margin: auto;
+        padding: 2rem 1.25rem 4rem;
+        border-top: 1px solid var(--line);
+        color: var(--mute);
+        font: 14px system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="#top">Intro</a>
+      <a href="#b1">1 · Research</a>
+      <a href="#b2">2 · Institutions</a>
+      <a href="#b3">3 · Hermeneutic environments</a>
+      <a href="#b4">4 · Conclusion</a>
+      <a href="#map">Network map</a>
+      <a href="#forum">Third space</a>
+      <a href="#refs">References</a>
+    </nav>
+
+    <header id="top">
+      <div class="tag">Policy critique · Social epistemology</div>
+      <h1>We are screwed <em>lor</em> — but perhaps not quite.</h1>
+      <p class="lede">
+        Singapore’s media regulation can protect public knowledge while
+        restricting citizens’ participation in producing it. This site examines
+        the “neutral”, “technocratic” and “well-regulated” institutions that
+        shape what we know, and invites you to question them.
+      </p>
+      <div class="note">
+        DRAFT — content is being revised. Replace any paragraph below by editing
+        the text in the HTML file.
+      </div>
+      <p>
+        Pragmatism about our cognitive limits does not mean fatalism. Nor is a
+        centralised epistemic environment, regulated solely by the state, the
+        answer. We need a multi-pronged, collaborative approach. This is not an
+        attempt to foster distrust in institutions; healthy scepticism is
+        warranted by the evidence. We might also collectively conclude that
+        state management remains justified. Either way, we should decide
+        knowingly.
+      </p>
+    </header>
+
+    <section id="b1">
+      <div class="tag">Content block 1</div>
+      <h2>Current research</h2>
+      <p>
+        The January 6, 2021 attack on the US Capitol is a cautionary tale about
+        misinformation, polarisation and the erosion of shared epistemic norms.
+        Yet the failures of a liberal information environment do not justify its
+        opposite: a highly centralised, state-regulated one.
+      </p>
+      <p>
+        In Singapore, the state has long regulated media, public expression and
+        political participation, justified by social stability, racial and
+        religious harmony, and the prevention of misinformation and foreign
+        interference. These concerns are not without merit. In the 2026 World
+        Press Freedom Index, RSF ranked Singapore 123rd of 180. The question
+        extends beyond factual accuracy to who decides which claims are
+        credible, whose experiences are represented, and which interpretations
+        are recognised.
+      </p>
+
+      <h3>Hostile epistemology (Nguyen, 2022)</h3>
+      <p>
+        Humans are cognitively finite. We rely on heuristics, networks,
+        credentials and trusted authorities, and these dependencies can be
+        exploited by features of our environment: seductive conspiracy
+        theories, echo chambers of structured distrust, interfaces that reward
+        engagement over accuracy. Such hostility need not be intentional.
+        Whether a given arrangement encourages critical revision or prematurely
+        ends inquiry is something to investigate, not presume.
+      </p>
+
+      <h3>Hermeneutical injustice (Fricker, 2007; Riegler &amp; Veigl, 2025)</h3>
+      <p>
+        Hermeneutical injustice describes disadvantage in understanding or
+        communicating one’s social experience because of marginalisation in the
+        collective production of interpretive resources. Riegler and Veigl show
+        it can occur even when concepts exist, if a dominant meaning suppresses
+        others. Terms such as racial harmony, meritocracy, pragmatism and family
+        may mean different things to different groups, while some meanings
+        become institutionalised in law, policy and media narratives.
+      </p>
+
+      <h3>Environmental factors</h3>
+      <p>
+        Social media, recommendation algorithms and generative AI change the
+        scale, speed and cost of misleading content. Echo chambers can dismiss
+        outsiders systematically, so exposure to opposing evidence may not be
+        enough.
+      </p>
+
+      <h3>Behavioural change or institutional intervention?</h3>
+      <p>
+        Holliday, Lelkes and Westwood (2025) meta-analysed 77 depolarisation
+        treatments across 25 studies: an average gain of 5.4 points on a
+        101-point scale, typically fading within two weeks. Durable change may
+        need attention to elites, institutions and incentives. The American
+        evidence cannot be directly generalised to Singapore.
+      </p>
+      <p>
+        Van Bavel et al. (2024) update the identity-based model of belief:
+        beliefs serve social functions such as group membership and loyalty, and
+        informational environments shape which sources and identities become
+        salient. Identity does not necessarily undermine accuracy; professional
+        identities in journalism and science can strengthen verification norms.
+      </p>
+
+      <h3>Overview: Nguyen’s categories in Singapore</h3>
+      <div class="wrap">
+        <table>
+          <tr>
+            <th>Category</th>
+            <th>Cases in Singapore</th>
+          </tr>
+          <tr>
+            <td>Other people</td>
+            <td>“Alternative” media: The Online Citizen, New Naratif</td>
+          </tr>
+          <tr>
+            <td>Communities</td>
+            <td><em>to be completed</em></td>
+          </tr>
+          <tr>
+            <td>Cultural practices</td>
+            <td><em>to be completed</em></td>
+          </tr>
+          <tr>
+            <td>Institutional structures</td>
+            <td>
+              IMDA classification and licensing; Newspaper and Printing Presses
+              Act; FICA; POFMA
+            </td>
+          </tr>
+          <tr>
+            <td>Technologies</td>
+            <td>AI-mediated content; social media</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="b2">
+      <div class="tag">Content block 2</div>
+      <h2>
+        “Bad actors” or solutions? Institutions and the paradoxes of paternalism
+      </h2>
+      <p>
+        Preventing manipulation and protecting social cohesion are legitimate
+        concerns. Yet interventions also distribute power over what audiences
+        encounter and whom they regard as credible. Their justification
+        therefore depends on their effects on <strong>epistemic agency</strong>:
+        citizens’ practical ability to investigate claims, contribute experience
+        and challenge authoritative accounts.
+      </p>
+
+      <h3>Why protection matters</h3>
+      <p>
+        Under FICA, restrictions targeted 95 social media accounts in July 2024,
+        which the Ministry of Home Affairs attributed to a foreign network
+        posting about Singapore’s leadership transition. Taken as the ministry’s
+        assessment, this shows how apparently separate communications can be
+        organised manipulation.
+      </p>
+
+      <h3>Why dependence requires scrutiny</h3>
+      <p>
+        POFMA correction directions generally add official clarifications while
+        leaving the original post accessible, though stop-communication
+        directions exist. The Court of Appeal upheld POFMA’s constitutionality
+        in <em>The Online Citizen v Attorney-General</em> [2021]. FICA offers
+        ministerial reconsideration and a Reviewing Tribunal. These make
+        decisions contestable, but can citizens obtain and circulate the
+        evidence needed to challenge them?
+      </p>
+
+      <h3>Scrutiny depends on how public inquiry is organised</h3>
+      <p>
+        Teo’s interviews with 17 civil society participants identified
+        verification costs, reputational concerns and difficulty obtaining
+        official information. This shows mechanisms, not a population-wide
+        self-censorship rate. Licensing matters too: IMDA suspended The Online
+        Citizen’s class licence in September 2021 over funding-disclosure
+        obligations. Whatever its justification, it affects the continuing
+        availability of spaces for inquiry.
+      </p>
+
+      <h3>Consequences for shared understanding</h3>
+      <p>
+        Grasswick’s participatory epistemic injustice (an analogy from science)
+        asks whether differently situated people can help set what needs
+        investigating. IMDA’s refusal to classify <em>#LookAtMe</em> cited
+        religious denigration and social division, a substantive concern that
+        also restricts a narrative about homosexuality and religious authority.
+        These cases do not show a blanket prohibition; they show how regulation
+        shapes the interpretations available, which is where Fricker and
+        Pohlhaus (willful hermeneutical ignorance) become relevant.
+      </p>
+
+      <h3>Criteria for assessing the protective environment</h3>
+      <p>
+        Digital Skills for Life and SG Digital Office workshops address
+        misinformation, but a Singapore pilot (Wong &amp; Wu, 122 participants)
+        found no significant advantage for a misinformation game over its
+        control. REACH offers a feedback channel, but the question is whether
+        participation shapes questions and assumptions or only communicates
+        views inside existing agendas. Protection against manipulation stays
+        legitimate; its justification also depends on access to evidence,
+        meaningful review and opportunities for affected communities to
+        contribute.
+      </p>
+
+      <h3>Public space: protest</h3>
+      <p>The same questions apply beyond media, to physical public space.</p>
+      <ul class="src">
+        <li>
+          Video:
+          <a
+            href="https://youtu.be/OO8Z6RPK0m8?si=cktNODG3npCuOrDd"
+            target="_blank"
+            rel="noopener"
+          >Shanmugam interview on protest</a>
+          (embedded players cannot load on this hosted page, so it is linked).
+        </li>
+      </ul>
+      <div class="note">
+        I couldn’t open the video, so I haven’t summarised it. A 16 Nov 2026 CNA
+        interview reported by EconoTimes has Shanmugam defending limits on
+        demonstrations while saying governments must meet basic needs,
+        “Otherwise, people are going to protest regardless of what laws you
+        have.” Only use this if it is your video. Add your own summary here.
+      </div>
+    </section>
+
+    <section id="b3">
+      <div class="tag">Content block 3</div>
+      <h2>Vibrant hermeneutic environments</h2>
+      <p>
+        Censorship and marginalisation can create a subaltern class. As digital
+        and public spaces face more control, how lived experiences are
+        communicated, and whose voices are shared, has material consequences.
+        Examining how narratives are constructed around the most marginalised
+        communities can reveal the latent hostilities of “pragmatic” policies.
+        Riegler and Veigl’s spaces for plurality point to what a better
+        environment might look like.
+      </p>
+      <ul class="src">
+        <li>
+          <a href="https://endlorryrides.com/" target="_blank" rel="noopener">
+            End Lorry Rides
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://heckinunicorn.com/blogs/heckin-unicorn-blog/how-the-singapore-government-discriminates-against-its-lgbtq-citizens"
+            target="_blank"
+            rel="noopener"
+          >
+            How the Singapore government discriminates against its LGBTQ
+            citizens (Heckin Unicorn)
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="b4">
+      <div class="tag">Content block 4</div>
+      <h2>Conclusion and insights</h2>
+      <p>
+        We inhabit an increasingly complex information environment in which
+        misinformation can arise from malicious actors, technological
+        incentives, institutional practices and our own cognitive limits. As
+        Nguyen reminds us, we cannot escape dependence on imperfect epistemic
+        shortcuts.
+      </p>
+      <p>
+        Yet recognising vulnerability does not mean surrendering epistemic
+        agency, nor granting any single institution an unquestionable monopoly
+        over public knowledge.
+      </p>
+      <p>
+        Singapore’s challenge is not simply to prevent false beliefs, but to
+        cultivate an environment in which claims can be scrutinised, mistakes
+        corrected, and diverse experiences made intelligible. A resilient
+        environment needs both reliable institutions and the capacity to
+        question them: shared standards of evidence without uniformity of
+        interpretation.
+      </p>
+      <p>
+        Perhaps the most pragmatic response to our limits is not to eliminate
+        disagreement, but to build institutions and communities that can learn
+        through it. <strong>Majulah!</strong>
+      </p>
+      <p>
+        Further reading:
+        <a
+          href="https://www.jom.media/pofma-fail-the-end-of-our-journey/"
+          target="_blank"
+          rel="noopener"
+        >JOM: POFMA fail, the end of our journey</a>
+      </p>
+    </section>
+
+    <section id="map">
+      <div class="tag">Interactive · 1</div>
+      <h2>Who shapes Singapore’s media environment?</h2>
+      <p>
+        Tap an actor to see a possible account of its role and incentives. These
+        are discussion prompts, not findings.
+      </p>
+      <div id="nodes"></div>
+      <div id="detail">
+        <h4>Select an actor</h4>
+        Incentives are rarely one thing. Ask what each actor gains, risks, and is
+        accountable for.
+      </div>
+      <div class="note">
+        Draft: ownership and regulatory links need verifying against current
+        sources before submission.
+      </div>
+    </section>
+
+    <section id="forum">
+      <div class="tag">Interactive · 2</div>
+      <h2>The third space</h2>
+      <p>
+        What do you think the incentives are for these institutions and for those
+        who control the media environment? What is missing from this critique?
+      </p>
+      <form id="f">
+        <select id="who" aria-label="About which actor"></select>
+        <textarea
+          id="txt"
+          placeholder="Your view, or a meta-criticism of the media landscape…"
+          required
+        ></textarea>
+        <button class="go" type="submit">Add to the wall</button>
+      </form>
+      <div class="note">
+        Responses are saved only in your own browser on this device. They are
+        not shared or collected. To collect real responses, replace this with an
+        embedded form (e.g. Google Forms) when you are ready.
+      </div>
+      <div id="wall"></div>
+    </section>
+
+    <section id="refs">
+      <div class="tag">Sources</div>
+      <h2>References</h2>
+      <ul class="src">
+        <li>
+          Fricker, M. (2007). Hermeneutical Injustice.
+          <em>Epistemic Injustice</em>, Oxford UP.
+        </li>
+        <li>
+          George, C. (2007). Consolidating authoritarian rule: Calibrated
+          coercion in Singapore. <em>The Pacific Review</em> 20(2).
+        </li>
+        <li>
+          Grasswick, H. (2017). Epistemic injustice in science.
+          <em>Routledge Handbook of Epistemic Injustice</em>.
+        </li>
+        <li>
+          Holliday, D. E., et al. (2025). Why depolarization is hard.
+          <em>PNAS</em> 122(39).
+        </li>
+        <li>
+          Kenyon, A. T. (2010). Investigating chilling effects.
+          <em>Int. Journal of Communication</em> 4.
+        </li>
+        <li>
+          Lee, H., &amp; Lee, T. (2019). From contempt of court to fake news.
+          <em>Media International Australia</em> 173(1).
+        </li>
+        <li>Nguyen, C. T. (2022). Hostile epistemology.</li>
+        <li>
+          Pohlhaus, G. (2012). Relational knowing and epistemic injustice.
+          <em>Hypatia</em> 27(4).
+        </li>
+        <li>
+          Teo, K. X. (2021). Civil society responses to Singapore’s online “fake
+          news” law. <em>IJoC</em> 15. And (2026). “Closed by default.”
+          <em>IJoC</em> 20.
+        </li>
+        <li>
+          Van Bavel, J. J., et al. (2024). Updating the identity-based model of
+          belief. <em>Current Opinion in Psychology</em> 56.
+        </li>
+        <li>
+          Wong, C. M. L., &amp; Wu, Y. (2023). Limits to inoculating against the
+          risk of fake news. <em>Journal of Risk Research</em> 26(10).
+        </li>
+        <li>
+          Official sources: MHA (FICA, 19 Jul 2024); IMDA (14 Sept 2021; Film
+          and Video Classification Guide); POFMA 2019 (SSO); REACH.
+        </li>
+        <li>
+          <a href="https://rsf.org/en/country/singapore" target="_blank" rel="noopener">
+            RSF: Singapore
+          </a>
+          ·
+          <a href="https://academic-freedom-index.net/" target="_blank" rel="noopener">
+            Academic Freedom Index
+          </a>
+        </li>
+      </ul>
+    </section>
+    <footer>Draft student project. Content subject to revision.</footer>
+
+    <script>
+      var ACTORS = [
+        {
+          l: "State",
+          n: "Ministries (MHA, MDDI)",
+          d: "Administer POFMA and FICA. Possible incentives: social stability, national security, public trust in official information. Also a participant in public knowledge production, with political interests of its own. Question: who reviews the reviewer?"
+        },
+        {
+          l: "State",
+          n: "IMDA",
+          d: "Licenses broadcasters and online services and classifies films. Possible incentives: administrative consistency, social harmony, compliance. Question: how are “harm” and “denigration” defined, and who is consulted?"
+        },
+        {
+          l: "State",
+          n: "REACH & digital literacy",
+          d: "Official feedback and education channels (REACH, Digital Skills for Life). Possible incentives: legitimacy, citizen buy-in, resilience. Question: does feedback reshape agendas or only inform them?"
+        },
+        {
+          l: "Mainstream media",
+          n: "Established press & broadcasters",
+          d: "Operate under the Newspaper and Printing Presses Act framework and market pressures. Possible incentives: audience, advertising, regulatory goodwill. Verify current ownership and funding before citing."
+        },
+        {
+          l: "Alternative media",
+          n: "Independent outlets",
+          d: "E.g. The Online Citizen, New Naratif. Possible incentives: filling gaps in coverage, advocacy, donations. Risks: licence suspension, funding-disclosure scrutiny, verification costs."
+        },
+        {
+          l: "Platforms",
+          n: "Social media & AI",
+          d: "Recommendation systems and generative AI. Possible incentives: engagement and attention rather than accuracy, a not-quite-intentional hostility in Nguyen’s terms."
+        },
+        {
+          l: "Civil society",
+          n: "Researchers, fact-checkers, communities",
+          d: "Academics, fact-checking groups and affected communities. Possible incentives: credibility, funding, access to evidence. Question: whose interpretations get uptake?"
+        }
+      ];
+
+      var nodes = document.getElementById("nodes");
+      var det = document.getElementById("detail");
+      var who = document.getElementById("who");
+      var last = "";
+
+      ACTORS.forEach(function (a) {
+        if (a.l !== last) {
+          var h = document.createElement("div");
+          h.className = "layer";
+          h.textContent = a.l;
+          nodes.appendChild(h);
+
+          var b = document.createElement("div");
+          b.className = "btns";
+          b.id = "g" + a.l.replace(/\W/g, "");
+          nodes.appendChild(b);
+          last = a.l;
+        }
+
+        var btn = document.createElement("button");
+        btn.className = "node";
+        btn.textContent = a.n;
+        btn.setAttribute("aria-pressed", "false");
+        btn.onclick = function () {
+          document.querySelectorAll(".node").forEach(function (x) {
+            x.setAttribute("aria-pressed", "false");
+          });
+          btn.setAttribute("aria-pressed", "true");
+          det.innerHTML = "<h4></h4><span></span>";
+          det.querySelector("h4").textContent = a.n;
+          det.querySelector("span").textContent = a.d;
+        };
+        document
+          .getElementById("g" + a.l.replace(/\W/g, ""))
+          .appendChild(btn);
+
+        var o = document.createElement("option");
+        o.textContent = a.n;
+        who.appendChild(o);
+      });
+
+      var g = document.createElement("option");
+      g.textContent = "General / something missing";
+      who.appendChild(g);
+
+      var wall = document.getElementById("wall");
+      var KEY = "sg-epistemic-wall";
+      var items = [];
+
+      try {
+        items = JSON.parse(localStorage.getItem(KEY) || "[]");
+      } catch (e) {
+        items = [];
+      }
+
+      function draw() {
+        wall.innerHTML = "";
+        items.slice().reverse().forEach(function (it) {
+          var d = document.createElement("div");
+          d.className = "entry";
+          var s = document.createElement("small");
+          s.textContent = it.w;
+          var p = document.createElement("span");
+          p.textContent = it.t;
+          d.appendChild(s);
+          d.appendChild(p);
+          wall.appendChild(d);
+        });
+      }
+
+      document.getElementById("f").onsubmit = function (e) {
+        e.preventDefault();
+        var t = document.getElementById("txt");
+        if (!t.value.trim()) return;
+        items.push({ w: who.value, t: t.value.trim() });
+        try {
+          localStorage.setItem(KEY, JSON.stringify(items));
+        } catch (x) {}
+        t.value = "";
+        draw();
+      };
+
+      draw();
+    </script>
+  </body>
+</html>
