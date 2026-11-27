@@ -465,6 +465,46 @@ h1 em,
   min-width: 0;
 }
 
+.story-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.story-card__link:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 0.5rem;
+}
+
+.story-card--essay .story-card__art {
+  background:
+    radial-gradient(ellipse at 68% 48%, rgb(200 92 74 / 36%), transparent 34%),
+    linear-gradient(145deg, #442832, #25232a 70%);
+}
+
+.essay-light {
+  position: absolute;
+  top: 30%;
+  right: 12%;
+  width: 42%;
+  height: 2px;
+  background: #e8a65c;
+  box-shadow: 0 0 16px #e8a65c, 0 0 44px rgb(232 166 92 / 70%);
+  transform: rotate(-12deg);
+}
+
+.essay-word {
+  position: absolute;
+  right: 11%;
+  bottom: 13%;
+  color: rgb(241 232 220 / 84%);
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: -0.08em;
+  line-height: 0.8;
+  text-shadow: 0 0 35px rgb(200 92 74 / 45%);
+}
+
 .story-card__art {
   position: relative;
   height: clamp(180px, 23vw, 285px);

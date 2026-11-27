@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#171516">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
     <title>We Are Screwed Lor — Singapore’s Epistemic Environment</title>
     <style>
       :root {
@@ -287,21 +290,261 @@
         color: var(--mute);
         font: 14px system-ui, sans-serif;
       }
+
+      :root {
+        color-scheme: dark;
+        --bg: #171516;
+        --fg: #f1e8dc;
+        --mute: #a69b91;
+        --card: #201d1c;
+        --line: #38312d;
+        --acc: #e8a65c;
+        --acc2: #e8a65c;
+      }
+
+      html {
+        scroll-padding-top: 4.5rem;
+      }
+
+      body {
+        background:
+          radial-gradient(ellipse at 78% 12%, rgb(133 68 52 / 12%), transparent 34%),
+          var(--paper);
+        color: var(--ink);
+        font: 17px/1.8 var(--sans);
+      }
+
+      .page-nav {
+        top: 0;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        padding: 0.8rem 5vw;
+        background: rgb(23 21 22 / 94%);
+        border-bottom: 1px solid rgb(241 232 220 / 9%);
+        backdrop-filter: blur(14px);
+      }
+
+      .page-nav .wordmark {
+        flex: 0 0 auto;
+      }
+
+      .page-nav__links {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        gap: 1rem;
+        overflow-x: auto;
+      }
+
+      .page-nav a:not(.wordmark) {
+        color: var(--muted);
+        font: 0.65rem var(--mono);
+        letter-spacing: 0.04em;
+        transition: color 180ms ease;
+      }
+
+      .page-nav a:hover {
+        color: var(--amber);
+      }
+
+      .page-nav__home {
+        flex: 0 0 auto;
+        color: var(--amber) !important;
+        text-decoration: none;
+      }
+
+      .article-hero {
+        position: relative;
+        max-width: none;
+        overflow: hidden;
+        padding: 6rem max(7vw, calc((100vw - 850px) / 2)) 4rem;
+        background:
+          radial-gradient(ellipse at 80% 42%, rgb(200 92 74 / 20%), transparent 34%),
+          linear-gradient(115deg, rgb(45 37 43 / 76%), transparent 72%);
+        border-bottom: 1px solid rgb(241 232 220 / 9%);
+      }
+
+      .article-hero > * {
+        max-width: 850px;
+      }
+
+      .article-hero .tag {
+        color: var(--amber);
+        font: 0.64rem var(--mono);
+        letter-spacing: 0.16em;
+      }
+
+      .article-hero h1 {
+        margin: 1rem 0 1.5rem;
+        font: 500 clamp(3.2rem, 8vw, 6.5rem) / 0.98 var(--serif);
+        letter-spacing: -0.055em;
+      }
+
+      .article-hero h1 em {
+        color: var(--amber);
+      }
+
+      .article-hero .lede {
+        max-width: 720px;
+        color: #c2b6aa;
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+      }
+
+      section {
+        max-width: 850px;
+        padding: 3.5rem 1.5rem;
+        border-color: rgb(241 232 220 / 10%);
+        scroll-margin-top: 4rem;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+        font: 500 clamp(1.8rem, 4vw, 2.5rem) / 1.15 var(--serif);
+        letter-spacing: -0.035em;
+      }
+
+      h3 {
+        margin-top: 2.4rem;
+        color: var(--amber);
+        font: 500 0.68rem/1.5 var(--mono);
+        letter-spacing: 0.12em;
+      }
+
+      p {
+        color: #c2b6aa;
+      }
+
+      .tag {
+        color: var(--amber);
+        font: 0.62rem var(--mono);
+        letter-spacing: 0.16em;
+      }
+
+      .note {
+        background: linear-gradient(110deg, rgb(200 92 74 / 9%), var(--panel));
+        border-color: rgb(241 232 220 / 12%);
+        border-left-color: var(--red);
+        color: #b6aaa0;
+      }
+
+      th {
+        color: var(--amber);
+      }
+
+      a {
+        color: var(--amber);
+      }
+
+      .node {
+        color: var(--ink);
+        transition: border-color 180ms ease, background 180ms ease;
+      }
+
+      .node:hover {
+        border-color: var(--amber);
+      }
+
+      .node[aria-pressed="true"] {
+        color: var(--paper);
+      }
+
+      #detail,
+      .entry {
+        background: var(--panel);
+        border-color: rgb(241 232 220 / 12%);
+      }
+
+      #detail h4 {
+        color: var(--amber);
+      }
+
+      .go {
+        color: var(--paper);
+        font-weight: 600;
+      }
+
+      footer.page-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        max-width: none;
+        padding: 1.5rem 7vw;
+        color: var(--muted);
+      }
+
+      footer.page-footer .wordmark {
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      @media (max-width: 760px) {
+        .page-nav {
+          gap: 0.8rem;
+        }
+
+        .page-nav__links {
+          justify-content: flex-start;
+        }
+
+        .page-nav__home {
+          display: none;
+        }
+
+        .article-hero {
+          padding: 5rem 1.25rem 3rem;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page-nav {
+          padding-right: 5vw;
+          padding-left: 5vw;
+        }
+
+        .page-nav__links {
+          gap: 0.8rem;
+        }
+
+        .page-nav__links a {
+          font-size: 0.58rem !important;
+        }
+
+        section {
+          padding: 2.75rem 1.25rem;
+        }
+
+        footer.page-footer {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 1.5rem 5vw;
+        }
+      }
     </style>
   </head>
   <body>
-    <nav>
-      <a href="#top">Intro</a>
-      <a href="#b1">1 · Research</a>
-      <a href="#b2">2 · Institutions</a>
-      <a href="#b3">3 · Hermeneutic environments</a>
-      <a href="#b4">4 · Conclusion</a>
-      <a href="#map">Network map</a>
-      <a href="#forum">Third space</a>
-      <a href="#refs">References</a>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="page-nav" aria-label="Page navigation">
+      <a class="wordmark" href="index.html" aria-label="Between Stops home">
+        <span class="wordmark__icon" aria-hidden="true">B</span>
+        <span>BETWEEN STOPS</span>
+      </a>
+      <div class="page-nav__links">
+        <a href="#top">Intro</a>
+        <a href="#b1">1 · Research</a>
+        <a href="#b2">2 · Institutions</a>
+        <a href="#b3">3 · Hermeneutic environments</a>
+        <a href="#b4">4 · Conclusion</a>
+        <a href="#map">Network map</a>
+        <a href="#forum">Third space</a>
+        <a href="#refs">References</a>
+      </div>
+      <a class="page-nav__home" href="index.html">BACK HOME ↗</a>
     </nav>
 
-    <header id="top">
+    <main id="main">
+      <header id="top" class="article-hero">
       <div class="tag">Policy critique · Social epistemology</div>
       <h1>We are screwed <em>lor</em> — but perhaps not quite.</h1>
       <p class="lede">
@@ -323,7 +566,7 @@
         state management remains justified. Either way, we should decide
         knowingly.
       </p>
-    </header>
+      </header>
 
     <section id="b1">
       <div class="tag">Content block 1</div>
@@ -690,7 +933,14 @@
         </li>
       </ul>
     </section>
-    <footer>Draft student project. Content subject to revision.</footer>
+    </main>
+    <footer class="page-footer">
+      <a class="wordmark" href="index.html" aria-label="Between Stops home">
+        <span class="wordmark__icon" aria-hidden="true">B</span>
+        <span>BETWEEN STOPS</span>
+      </a>
+      <span>Draft student project. Content subject to revision.</span>
+    </footer>
 
     <script>
       var ACTORS = [
